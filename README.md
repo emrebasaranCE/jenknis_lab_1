@@ -83,3 +83,34 @@ If we give the information inside the job's configuration to use ssh and enter b
 </p>
 
 We can see here that our job is worked out and we can communicate with remote-host container via our jenkins container! That's greatt!!!
+
+## Creating MySql Server in Docker
+
+We updated our docker-compose.yaml file like this:
+
+    db_host:
+        container_name: db
+        image: mysql
+        environment:
+        - "MYSQL_ROOT_PASSWORD=1234"
+        volumes:
+        - $PWD/db_data:/var/lib/mysql
+        networks:
+        - net
+
+And when we do:
+
+    docker compose down
+    docker compose up -d
+
+We can see that our services is up:
+
+![alt text](/images_for_readme/image_11.png)
+
+We just added needed AWS tools in our remote-host container like this:
+
+    RUN yum -y install mysql
+    
+    RUN yum -y install python3-pip && \
+        pip3 install --upgrade pip && \
+        pip3 install awscli

@@ -1,4 +1,5 @@
 jenkins_home/*
+db_data/*
 
 fedora/remote-key
 fedora/remote-key.pub
