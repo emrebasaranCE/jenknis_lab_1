@@ -48,6 +48,10 @@ We can access this variables. If we build this job, we can see an output like th
 
 We create new Dockerfile for fedora container at `fedora/Dockerfile` and we update our docker-compose file for remote-host container.
 
+After editing Dockerfile in fedora file path, we can creat a ssh key using:
+
+    ssh-keygen -t rsa -m PEM -f remote-key
+
 If you guys counter any error that stops jenkins container running, this might be because of the jenkins doesn't have rights to write onto the file `jenkins_home`. So to solve this we basicly use this command:
 
     sudo chown -R 1000:1000 ./jenkins_home
@@ -64,3 +68,18 @@ As we can see, our both jenkins and remote-host container is running. We can acc
 We can copy remote-key file inside of our jenkins container and we can use this file for accessing remote-host container.  
 
 The reason we are doing this is to actaully access this remote-host via jenkins for job usage. In future, we actually gonna use ansible for ssh connections. 
+
+# 
+
+Now we can add ssh remote host from jenkins configuration page:
+
+![alt text](/images_for_readme/image_8.png)
+
+If we give the information inside the job's configuration to use ssh and enter basic command:
+
+<p align="center">
+  <img src="/images_for_readme/image_9.png" alt="Image 9" width="45%" style="margin-right: 10px;">
+  <img src="/images_for_readme/image_10.png" alt="Image 10" width="45%">
+</p>
+
+We can see here that our job is worked out and we can communicate with remote-host container via our jenkins container! That's greatt!!!
