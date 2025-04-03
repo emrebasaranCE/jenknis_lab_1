@@ -3,9 +3,16 @@ services:
     container_name: jenkins
     image: jenkins/jenkins
     ports:
-      - "8081:8080"
+      - "8080:8080"
     volumes:
       - $PWD/jenkins_home:/var/jenkins_home
+    networks:
+      - net
+  remote_host:
+    container_name: remote-host
+    image: remote-host
+    build:
+      context: fedora
     networks:
       - net
 networks:

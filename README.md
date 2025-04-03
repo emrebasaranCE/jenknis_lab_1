@@ -8,7 +8,7 @@ First we created jenkins container with our current docker-compose.yaml file.
 After using `docker compose up -d`, our jenkins container is active.
 
 Then we can proceed to install nedeed plugins with the given key from jenkins container:
-![alt text](/images_for_readme/image.png)
+![alt text](/images_for_readme/image_1.png)
 
 #
 
@@ -41,3 +41,26 @@ We can access this variables. If we build this job, we can see an output like th
   <img src="/images_for_readme/image_4.png" alt="Image 4" width="45%" style="margin-right: 10px;">
   <img src="/images_for_readme/image_5.png" alt="Image 5" width="45%">
 </p>
+
+# 
+
+## Creating Container From Fedore OS
+
+We create new Dockerfile for fedora container at `fedora/Dockerfile` and we update our docker-compose file for remote-host container.
+
+If you guys counter any error that stops jenkins container running, this might be because of the jenkins doesn't have rights to write onto the file `jenkins_home`. So to solve this we basicly use this command:
+
+    sudo chown -R 1000:1000 ./jenkins_home
+
+We are giving needed permission of the jenkins container to write or read from this file path.
+
+# 
+![alt text](/images_for_readme/image_6.png)
+
+As we can see, our both jenkins and remote-host container is running. We can access remote-host from jenkins container:
+
+![alt text](/images_for_readme/image_7.png)
+
+We can copy remote-key file inside of our jenkins container and we can use this file for accessing remote-host container.  
+
+The reason we are doing this is to actaully access this remote-host via jenkins for job usage. In future, we actually gonna use ansible for ssh connections. 
