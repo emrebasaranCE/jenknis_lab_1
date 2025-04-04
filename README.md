@@ -272,3 +272,21 @@ cp hosts ../jenkins_home/ansible/
 #### What is this hosts file?
 
 This file called inventory. Basicly its a file that holds our host information and our configurations like host user name and remote-key. 
+
+If we get inside our jenkins container and try to ping our remote-host:
+
+```bash 
+docker exec -it jenkins bash
+```
+```bash
+cd 
+cd ansible/
+ansible -i hosts -m ping test1
+```
+
+If you are with me until this point, you will get this output saying that its working:
+
+![alt text](/images_for_readme/image_20.png)
+
+# 
+
