@@ -219,4 +219,24 @@ We created our jenkins job in a way that get 2 credentials variable from jenkins
 
 By doing this like this, we can create a backup of any database we want actually. If there is database itself, its so easy for us to specify which database to backup. Jenkins is really flexible for this stuff and i love ittt! 
 
-#
+### Adding Ansible to our jenkins container
+
+We created new directory `jenkins-ansible` and inside that directory, we created a new Dockerfile file with configurations for ansible + jenkins. And updated our docker-compose file.
+
+After building and running our container, we can check ansible like this:
+
+```bash
+docker exec -it jenkins bash
+ansible
+```
+
+The output shows us that we successfully installed ansible to our container, but its not over yet. Now we have to tell jenkins that it can communicate with ansible via installing a plugin:
+
+
+<p align="center">
+  <img src="/images_for_readme/image_18.png" alt="Image 9" width="45%" style="margin-right: 10px;">
+  <img src="/images_for_readme/image_19.png" alt="Image 10" width="45%">
+</p>
+
+# 
+
