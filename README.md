@@ -8,7 +8,8 @@ First we created jenkins container with our current docker-compose.yaml file.
 After using `docker compose up -d`, our jenkins container is active.
 
 Then we can proceed to install nedeed plugins with the given key from jenkins container:
-![alt text](/images_for_readme/image_1.png)
+
+  <img src="/images_for_readme/image_1.png" alt="Image 10" width="60%">
 
 #
 
@@ -33,7 +34,7 @@ docker cp basic_script.sh jenkins:/tmp/script.sh
 
 In our jenkins client, we can parameterise our job like this and we will have 2 different variable called `FIRST_NAME` and `LAST_NAME`
 
-![alt text](/images_for_readme/image_3.png)
+  <img src="/images_for_readme/image_3.png" alt="Image 10" width="60%">
 
 If we add Execute Shell in build steps and fill it like this:
 
@@ -191,11 +192,11 @@ chmod +x aws_backup_script.sh
 
 Ups! I forgot to add bindings in job configurations. Our job doesn't know what credentials to use soo we are using bindings like this:
 
-![alt text](/images_for_readme/image_15.png)
+  <img src="/images_for_readme/image_15.png" alt="Image 10" width="60%">
 
 But now our job can access all of our variables and run smoothly!
 
-![alt text](/images_for_readme/image_16.png)
+  <img src="/images_for_readme/image_16.png" alt="Image 10" width="60%">
 
 And if we look into our bucket on AWS S3, we can see our uploaded object: 
 
@@ -320,7 +321,7 @@ In the image we can see that our playbook successfully runned.
 
 In configuration of our job, we add `Invoke Ansible Playbook`.
 
-  <img src="/images_for_readme/image_22.png" alt="Image 10" width="45%">
+  <img src="/images_for_readme/image_22.png" alt="Image 10" width="60%">
 
 This is how we do it and if we build this job and get into our remote-host container and then try to look for created file, we can find `hello.txt` there like this:
 
