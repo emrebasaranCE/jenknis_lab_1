@@ -262,3 +262,13 @@ docker exec \                         # Run a command inside a container
   "chmod 400 /var/jenkins_home/ansible/remote-key && \
    chown 1000:1000 /var/jenkins_home/ansible -R"
 ```
+### Creating our first inventory in Ansible
+
+After creating our `fedora/hosts` file, we copy this file into our jenkins container like this:
+
+```bash
+cp hosts ../jenkins_home/ansible/
+``` 
+#### What is this hosts file?
+
+This file called inventory. Basicly its a file that holds our host information and our configurations like host user name and remote-key. 
