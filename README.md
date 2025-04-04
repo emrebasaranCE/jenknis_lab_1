@@ -415,4 +415,48 @@ We just created necessary files inside our `jenkins-ansible` folder just like th
     │   ├── nginx.repo
     └── Dockerfile
 
-After creating new files, for our newly created container to run we have to update our docker-compose.yaml file!
+After creating new files, for our newly created container to run we have to update our docker-compose.yaml file with this lines:
+
+```yaml
+web: 
+    container_name: web
+    image: ansible-web
+    build:
+      context: jenkins-ansible/web
+    ports:
+      - "80:80"
+    networks:
+      - net
+```
+
+After 
+```bash 
+docker compose down
+docker compose up -d
+```
+Our containers are ready!
+
+And now we get into our web container and add this php code inside index.html to see if our system is working:
+
+```php
+<?php
+
+// Show all information, defaults to INFO_ALL
+phpinfo();
+
+// Show just the module information.
+// phpinfo(8) yields identical results.
+phpinfo(INFO_MODULES);
+
+?>
+```
+```bash 
+docker exec -it web bash
+```
+```bash 
+cd /var/www/html/
+vi index.php
+```
+
+![alt text](images_for_readme/image_31.png)
+And with this image we can see that our php is active and running nicely.

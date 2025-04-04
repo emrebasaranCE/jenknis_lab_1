@@ -4,10 +4,10 @@
 
 /usr/sbin/sshd
 
-# Starts php process in backgroud
+# Starts php process in background
 
 mkdir -p /run/php-fpm && /usr/sbin/php-fpm -c /etc/php/fpm
 
-# Start nginx daemon
+# Starts nginx daemon
 
-nginx -g `daemon off;`
+nginx -g 'daemon off;'

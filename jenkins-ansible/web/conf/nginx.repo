@@ -1,5 +1,5 @@
 [nginx]
 name=nginx repo
-baseurl=https://nginx.org/packages/fedora/$releasever/$basearch/
+baseurl=http://nginx.org/packages/centos/7/$basearch/
 gpgcheck=0
 enabled=1
