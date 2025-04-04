@@ -288,5 +288,44 @@ If you are with me until this point, you will get this output saying that its wo
 
 ![alt text](/images_for_readme/image_20.png)
 
-# 
+# What is Ansible Playbook?
+
+An Ansible playbook is a configuration file written in YAML that defines a series of tasks to be executed on remote hosts. 
+Playbooks allow you to automate complex processes, using the inventory (host) file to know which machines to target.
+
+After creating our play.yaml file at `jenkins-ansible/play.yaml`, we can copy it inside of our jenkins container:
+
+```bash
+cd jenkins-ansible/
+cp play.yaml ../jenkins_home/ansible/
+```
+
+And after going inside our container:
+
+```bash
+docker exec -it jenkins bash
+```
+
+```bash 
+cd
+cd ansible/
+ansible-playbook -i hosts play.yaml
+```
+
+![alt text](/images_for_readme/image_21.png)
+
+In the image we can see that our playbook successfully runned.
+
+### Creating Jenkins Job While Using Ansible Playbook
+
+In configuration of our job, we add `Invoke Ansible Playbook`.
+
+![alt text](/images_for_readme/image_22.png)
+
+This is how we do it and if we build this job and get into our remote-host container and then try to look for created file, we can find `hello.txt` there like this:
+
+<p align="center">
+  <img src="/images_for_readme/image_23.png" alt="Image 9" width="45%" style="margin-right: 10px;">
+  <img src="/images_for_readme/image_24.png" alt="Image 10" width="45%">
+</p>
 
