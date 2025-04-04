@@ -240,3 +240,25 @@ The output shows us that we successfully installed ansible to our container, but
 
 # 
 
+While connecting to our remote-host container, we always in need of remote-key file. For this reason, we can create a new directory inside our jenkins-ansible dir and add remote-key file into there. This way when our container restarts, we can always have the remote-key file in the palm of our hands. 
+
+```bash
+
+mkdir jenkins_home/ansible
+cp fedora/remote-key jenkins_home/ansible/
+```
+
+### ⚠️ Important Note
+
+After copying the `remote-key` file into the mounted Jenkins volume, we need to ensure that the **Jenkins user inside the container** has the correct permissions to access and use the key.
+
+Use the following command to apply the necessary file mode and ownership:
+
+```bash
+docker exec \                         # Run a command inside a container
+  -u root \                           # Execute as the root user
+  jenkins \                           # Target container named "jenkins"
+  bash -c \                           # Run using bash shell
+  "chmod 400 /var/jenkins_home/ansible/remote-key && \
+   chown 1000:1000 /var/jenkins_home/ansible -R"
+```
