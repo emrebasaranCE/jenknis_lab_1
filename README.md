@@ -403,3 +403,16 @@ You will get a output something like this. Aaaaannndddd if we run `SELECT * FROM
   <img src="/images_for_readme/image_30.png" alt="Image 10" width="45%">
 </p>
 
+#### Creating Nginx Container
+
+We just created necessary files inside our `jenkins-ansible` folder just like this:
+
+    web/
+    ├── bin/
+    │   └── start.sh
+    ├── conf/
+    │   ├── nginx.conf
+    │   ├── nginx.repo
+    └── Dockerfile
+
+After creating new files, for our newly created container to run we have to update our docker-compose.yaml file!
