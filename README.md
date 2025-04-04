@@ -238,7 +238,7 @@ The output shows us that we successfully installed ansible to our container, but
   <img src="/images_for_readme/image_19.png" alt="Image 10" width="45%">
 </p>
 
-# 
+# remote-key Consistency
 
 While connecting to our remote-host container, we always in need of remote-key file. For this reason, we can create a new directory inside our jenkins-ansible dir and add remote-key file into there. This way when our container restarts, we can always have the remote-key file in the palm of our hands. 
 
