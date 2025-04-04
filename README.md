@@ -356,4 +356,22 @@ If we run our job with specific information, we will be given output like this:
   <img src="/images_for_readme/image_28.png" alt="Image 10" width="45%">
 </p>
 
-# 
+### Creating Multi App Example
+
+First we need to login into our db container:
+
+```bash
+docker exec -it db bash
+```
+```bash
+mysql -u root -p
+# enter your password
+```
+And create database and table inside there:
+```bash
+create database people;
+use people;
+create table register (id int(3), name varchar(50), lastname varchar(50), age int(3));
+# to see out table
+desc register;
+```
