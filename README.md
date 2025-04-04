@@ -320,7 +320,7 @@ In the image we can see that our playbook successfully runned.
 
 In configuration of our job, we add `Invoke Ansible Playbook`.
 
-![alt text](/images_for_readme/image_22.png)
+  <img src="/images_for_readme/image_22.png" alt="Image 10" width="45%">
 
 This is how we do it and if we build this job and get into our remote-host container and then try to look for created file, we can find `hello.txt` there like this:
 
