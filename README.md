@@ -375,3 +375,31 @@ create table register (id int(3), name varchar(50), lastname varchar(50), age in
 # to see out table
 desc register;
 ```
+
+
+#### Adding data into our newly created database
+
+We created a new file containing our script for loading data to database. We also have `people.txt` as data itself.
+
+We have to give needed permissions to our file:
+
+```bash
+chmod +x put.sh
+# and we can copy our script to db container like this:
+docker cp put.sh db:/tmp
+# and also our people.txt file too:
+docker cp people.txt db:/tmp
+docker exec -it db bash
+```
+```bash
+cd /tmp/
+# and then to load our data into our database:
+./put.sh
+```
+You will get a output something like this. Aaaaannndddd if we run `SELECT * FROM register`:
+
+<p align="center">
+  <img src="/images_for_readme/image_29.png" alt="Image 9" width="45%" style="margin-right: 10px;">
+  <img src="/images_for_readme/image_30.png" alt="Image 10" width="45%">
+</p>
+
