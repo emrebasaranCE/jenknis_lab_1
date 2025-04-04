@@ -329,3 +329,30 @@ This is how we do it and if we build this job and get into our remote-host conta
   <img src="/images_for_readme/image_24.png" alt="Image 10" width="45%">
 </p>
 
+### Adding Parameters to the Jenkins Job
+
+After chaning our play.yaml file to this:
+
+```yaml
+- hosts: test1
+  tasks:
+    - name: Show custom message
+      debug:
+        msg: "{{MSG}}"
+```
+And after saying `This project is parameterised` and creating a new variable called ANSIBLE_MESSAGE, later we have to give this variable to our playbook via `Advanced -> Add Extra Parameter` like in the images below.
+
+<p align="center">
+  <img src="/images_for_readme/image_25.png" alt="Image 9" width="45%" style="margin-right: 10px;">
+  <img src="/images_for_readme/image_26.png" alt="Image 10" width="45%">
+</p>
+
+If we run our job with specific information, we will be given output like this:
+
+
+<p align="center">
+  <img src="/images_for_readme/image_27.png" alt="Image 9" width="45%" style="margin-right: 10px;">
+  <img src="/images_for_readme/image_28.png" alt="Image 10" width="45%">
+</p>
+
+# 
