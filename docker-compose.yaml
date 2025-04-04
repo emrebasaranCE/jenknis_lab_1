@@ -13,6 +13,8 @@ services:
     image: remote-host
     build:
       context: fedora
+    volumes:
+      - $PWD/aws_backup_script.sh:/tmp/aws_backup_script.sh
     networks:
       - net
   db_host:
