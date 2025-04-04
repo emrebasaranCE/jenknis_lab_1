@@ -200,3 +200,21 @@ But now our job can access all of our variables and run smoothly!
 And if we look into our bucket on AWS S3, we can see our uploaded object: 
 
 ![alt text](/images_for_readme/image_17.png)
+
+
+We created our jenkins job in a way that get 2 credentials variable from jenkins configurations and 3 variable as a job input. But wait!
+
+### What does that mean?
+
+
+| Variable      | Source              | Description                          |
+|---------------|---------------------|--------------------------------------|
+| `DB_PASSWORD` | Jenkins Credentials | Root password for the database       |
+| `AWS_SECRET`  | Jenkins Credentials | AWS Secret Key for S3 access         |
+| `DB_HOST`     | Job Input           | Hostname of the database             |
+| `DB_NAME`     | Job Input           | Name of the database to back up      |
+| `BUCKET_NAME` | Job Input           | Target AWS S3 bucket name            |
+
+
+
+By doing this like this, we can create a backup of any database we want actually. If there is database itself, its so easy for us to specify which database to backup. Jenkins is really flexible for this stuff and i love ittt! 
