@@ -11,7 +11,7 @@ Then we can proceed to install nedeed plugins with the given key from jenkins co
 
   <img src="/images_for_readme/image_1.png" alt="Image 10" width="60%">
 
-#
+---
 
 ## Creating basic job
 
@@ -47,7 +47,7 @@ We can access this variables. If we build this job, we can see an output like th
   <img src="/images_for_readme/image_5.png" alt="Image 5" width="45%">
 </p>
 
-# 
+---
 
 ## Creating Container From Fedore OS
 
@@ -66,7 +66,8 @@ sudo chown -R 1000:1000 ./jenkins_home
 
 We are giving needed permission of the jenkins container to write or read from this file path.
 
-# 
+---
+
 ![alt text](/images_for_readme/image_6.png)
 
 As we can see, our both jenkins and remote-host container is running. We can access remote-host from jenkins container:
@@ -77,7 +78,7 @@ We can copy remote-key file inside of our jenkins container and we can use this 
 
 The reason we are doing this is to actaully access this remote-host via jenkins for job usage. In future, we actually gonna use ansible for ssh connections. 
 
-# 
+---
 
 Now we can add ssh remote host from jenkins configuration page:
 
@@ -460,3 +461,15 @@ vi index.php
 
 ![alt text](images_for_readme/image_31.png)
 And with this image we can see that our php is active and running nicely.
+
+--- 
+
+After creating table.j2 file, we have to copy this file inside our container like this:
+
+```bash 
+docker cp table.j2 web:/var/www/html/index.php
+```
+
+And with this, we can see the output at our `localhost` like this:
+
+![alt text](images_for_readme/image_32.png)
