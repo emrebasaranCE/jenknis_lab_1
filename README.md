@@ -473,3 +473,26 @@ docker cp table.j2 web:/var/www/html/index.php
 And with this, we can see the output at our `localhost` like this:
 
 ![alt text](images_for_readme/image_32.png)
+
+### Integrate Docker Web Service to the Ansible Inventory
+
+First we need to add our newly created host to our hosts file at `jenkins_home/ansible/hosts` like this:
+
+```
+web1 ansible_host=web ansible_user=remote_user ansible_private_key_file=/var/jenkins_home/ansible/remote-key
+```
+
+Only difference from our test1 host is web1 uses `web` as a ansible_host.
+
+And to check out our updated hosts file:
+
+```bash
+docker exec -it jenkins bash
+```
+```bash
+cd ansible/
+ansible -m ping -i hosts web1
+```
+
+This will prompt us a information saying that our ping has arrived to our destination host:
+![alt text](images_for_readme/image_33.png)
