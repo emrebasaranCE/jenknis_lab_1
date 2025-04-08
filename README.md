@@ -496,3 +496,39 @@ ansible -m ping -i hosts web1
 
 This will prompt us a information saying that our ping has arrived to our destination host:
 ![alt text](images_for_readme/image_33.png)
+
+### Testing our playbook
+
+To test our playbook, first we need to copy `table.j2`:
+```bash
+cp table.j2 ../jenkins_home/ansible/
+cd jenkins_home/ansible
+vi people.yml
+```
+```yml
+- hosts: web1
+  tasks:
+    - name: Tranfer template to web server
+      template:
+        src: table.j2
+        dest: /var/www/html/index.php
+```
+In order to our commands work precisely, we need to do this also:
+
+```bash
+docker exec -it web bash
+cd /var/www/
+chown remote_user:remote_user /var/www/html/ -R 
+```
+And now we can check our playbook:
+```bash
+docker exec -it jenkins bash
+cd 
+cd ansible/
+ansible-playbook -i hosts people.yml
+```
+
+In here we can see that our playbook works just fine!
+![alt text](images_for_readme/image_34.png)
+
+
