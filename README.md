@@ -531,4 +531,17 @@ ansible-playbook -i hosts people.yml
 In here we can see that our playbook works just fine!
 ![alt text](images_for_readme/image_34.png)
 
+### Creating Jenkins Job to Build Everything with a Click
+
+After creating a job, we specify a variable called age with choices:
+![alt text](images_for_readme/image_35.png)
+
+Then we add build step as `Invoke Ansible Playbook` and after configuring our ansible playbook, we add extra parameter like this:
+![alt text](images_for_readme/image_36.png)
+
+Now all we have to do is build our job with parameter:
+
+![alt text](image_37.png)
+![alt text](image_38.png)
+With this, we can see that our job is configured nicely and works smoothly.
 

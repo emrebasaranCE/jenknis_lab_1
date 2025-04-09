@@ -1,5 +1,0 @@
-- hosts: test1
-  tasks:
-    - name: Show custom message
-      debug:
-        msg: "{{MSG}}"
