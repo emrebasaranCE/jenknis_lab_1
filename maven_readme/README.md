@@ -1,6 +1,18 @@
-# Contents
+# Introduction
 
-## Creating a Maven Job
+In this file, I explain how can you use maven with jenkins.
+
+## Contents
+
+- [1. Creating a Maven Job](#1-creating-a-maven-job)
+- [2. Building JAR Using Maven](#2-building-jar-using-maven)
+- [3. Adding Tests to the Jenkins Job](#3-adding-tests-to-the-jenkins-job)
+- [4. Deploying the JAR Locally](#4-deploying-the-jar-locally)
+- [5. Adding a Graph to Show Tests Results](#5-adding-a-graph-to-show-tests-results)
+- [6. Acrhiving the Last Successfull Artifact](#6-acrhiving-the-last-successfull-artifact)
+
+
+## 1. Creating a Maven Job
 
 First we need to create a new jenkins job. For this purpose, we can use this [github link](https://github.com/jenkins-docs/simple-java-maven-app).
 We need to paste this url inside our jenkins job like this:
@@ -11,7 +23,7 @@ And if we save and build this job this is our current output:
 
 ![alt text](image-1.png)
 
-## Building JAR Using Maven
+## 2. Building JAR Using Maven
 
 First we have to let jenkins now which version maven will it use like this:
 
@@ -36,7 +48,7 @@ Finished: SUCCESS
 
 In this commands we clearly see that our jar file is created and saved in our workspace file path.
 
-## Adding Tests to the Jenkins Job
+## 3. Adding Tests to the Jenkins Job
 
 We have to add another build step to our jenkins job like this:
 
@@ -54,7 +66,7 @@ This is how it looks like:
 
 ![alt text](image-5.png)
 
-## Deploying the JAR Locally
+## 4. Deploying the JAR Locally
 
 If there was no problem with the tests, we aim to deploy our jar with this code:
 
@@ -70,7 +82,7 @@ And we can see the output like this:
 
 ![alt text](image-6.png)
 
-## Adding a Graph to Show Tests Results
+## 5. Adding a Graph to Show Tests Results
 
 If we look into our job directory inside out jenkins container, we can see our logs at this file path `workspace/[job_name]/target/surefire-reports/`. And we can use this file to create graphs!
 
@@ -78,7 +90,7 @@ If we look into our job directory inside out jenkins container, we can see our l
 
 And this is how our graph looks like!
 
-## Acrhiving the Last Successfull Artifact
+## 6. Acrhiving the Last Successfull Artifact
 
 We can create a post-build action that activates when the build is successfull like this:
 
