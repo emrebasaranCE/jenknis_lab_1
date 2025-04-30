@@ -1,29 +1,44 @@
 # Jenkins & Ansible Lab 1
 
-In this lab, i will create the architecture based on my course in this [link](https://www.udemy.com/course/jenkins-from-zero-to-hero/learn/lecture/12999622#overview)
+## Contents
 
+- [Introduction](#introduction)
+- [Creating basic job](#creating-basic-job)
+- [Creating Container From Fedore OS](#creating-container-from-fedore-os)
+- [Creating MySql Server in Docker](#creating-mysql-server-in-docker)
+- [Adding Ansible to our jenkins container](#adding-ansible-to-our-jenkins-container)
+- [remote-key Consistency](#remote-key-consistency)
+- [Creating our first inventory in Ansible](#creating-our-first-inventory-in-ansible)
+- [What is Ansible Playbook?](#what-is-ansible-playbook)
+- [Creating Jenkins Job While Using Ansible Playbook](#creating-jenkins-job-while-using-ansible-playbook)
+- [Adding Parameters to the Jenkins Job](#adding-parameters-to-the-jenkins-job)
+- [Creating Multi App Example](#creating-multi-app-example)
+- [Creating Nginx Container](#creating-nginx-container)
+- [Integrate Docker Web Service to the Ansible Inventory](#integrate-docker-web-service-to-the-ansible-inventory)
+- [Testing our playbook](#testing-our-playbook)
+- [Creating Jenkins Job to Build Everything with a Click](#creating-jenkins-job-to-build-everything-with-a-click)
 
-First we created jenkins container with our current docker-compose.yaml file.
+---
 
-After using `docker compose up -d`, our jenkins container is active.
+## Introduction
 
-Then we can proceed to install nedeed plugins with the given key from jenkins container:
+In this lab, I will create the architecture based on my course in this [Udemy link](https://www.udemy.com/course/jenkins-from-zero-to-hero/learn/lecture/12999622#overview).
 
-  <img src="/images_for_readme/image_1.png" alt="Image 10" width="60%">
+First, we created the Jenkins container using our current `docker-compose.yaml` file. After executing `docker compose up -d`, the Jenkins container becomes active. Then we proceed to install the needed plugins using the given key from the Jenkins container.
+
+![Jenkins Plugin Setup](/images_for_readme/image_1.png)
 
 ---
 
 ## Creating basic job
 
-In our host machine we can create a script inludes following lines:
+We can create a script on our host machine:
 
 ```bash
-    #!/bin/bash
-
-    NAME=$1
-    LASTNAME=$2
-    
-    echo "Hello, $NAME $LASTNAME"
+#!/bin/bash
+NAME=$1
+LASTNAME=$2
+echo "Hello, $NAME $LASTNAME"
 ```
 
 And copy this script like this to our jenkins container:
@@ -34,11 +49,11 @@ docker cp basic_script.sh jenkins:/tmp/script.sh
 
 In our jenkins client, we can parameterise our job like this and we will have 2 different variable called `FIRST_NAME` and `LAST_NAME`
 
-  <img src="/images_for_readme/image_3.png" alt="Image 10" width="60%">
+![Parameterize Job](/images_for_readme/image_3.png)
 
-If we add Execute Shell in build steps and fill it like this:
+Add a build step to execute the shell script:
 
-![alt text](/images_for_readme/image_2.png)
+![Execute Shell](/images_for_readme/image_2.png)
 
 We can access this variables. If we build this job, we can see an output like this:
 
@@ -66,8 +81,6 @@ sudo chown -R 1000:1000 ./jenkins_home
 
 We are giving needed permission of the jenkins container to write or read from this file path.
 
----
-
 ![alt text](/images_for_readme/image_6.png)
 
 As we can see, our both jenkins and remote-host container is running. We can access remote-host from jenkins container:
@@ -93,11 +106,13 @@ If we give the information inside the job's configuration to use ssh and enter b
 
 We can see here that our job is worked out and we can communicate with remote-host container via our jenkins container! That's greatt!!!
 
+--- 
+
 ## Creating MySql Server in Docker
 
 We updated our docker-compose.yaml file like this:
 
-```
+```yaml
 db_host:
     container_name: db
     image: mysql
@@ -118,11 +133,11 @@ docker compose up -d
 
 We can see that our services is up:
 
-![alt text](/images_for_readme/image_11.png)
+![MySQL Up](/images_for_readme/image_11.png)
 
 We just added needed AWS tools in our remote-host container like this:
 
-```
+```bash
 RUN yum -y install mysql
 
 RUN yum -y install python3-pip && \
@@ -149,6 +164,7 @@ SELECT * FROM info;
 Okey, we just created our database and inserted some information. 
 
 ### What to do next? 
+---
 
 To make more complex operation, we can create a db backup and send this backup to the AWS S3 service. After creating S3 bucket. We will create a simple script for this occasion in `aws_backup_script.sh`.
 
@@ -221,7 +237,7 @@ We created our jenkins job in a way that get 2 credentials variable from jenkins
 
 By doing this like this, we can create a backup of any database we want actually. If there is database itself, its so easy for us to specify which database to backup. Jenkins is really flexible for this stuff and i love ittt! 
 
-### Adding Ansible to our jenkins container
+## Adding Ansible to our jenkins container
 
 We created new directory `jenkins-ansible` and inside that directory, we created a new Dockerfile file with configurations for ansible + jenkins. And updated our docker-compose file.
 
@@ -240,7 +256,7 @@ The output shows us that we successfully installed ansible to our container, but
   <img src="/images_for_readme/image_19.png" alt="Image 10" width="45%">
 </p>
 
-# remote-key Consistency
+## remote-key Consistency
 
 While connecting to our remote-host container, we always in need of remote-key file. For this reason, we can create a new directory inside our jenkins-ansible dir and add remote-key file into there. This way when our container restarts, we can always have the remote-key file in the palm of our hands. 
 
@@ -264,14 +280,14 @@ docker exec \                         # Run a command inside a container
   "chmod 400 /var/jenkins_home/ansible/remote-key && \
    chown 1000:1000 /var/jenkins_home/ansible -R"
 ```
-### Creating our first inventory in Ansible
+## Creating our first inventory in Ansible
 
 After creating our `fedora/hosts` file, we copy this file into our jenkins container like this:
 
 ```bash
 cp hosts ../jenkins_home/ansible/
 ``` 
-#### What is this hosts file?
+### What is this hosts file?
 
 This file called inventory. Basicly its a file that holds our host information and our configurations like host user name and remote-key. 
 
@@ -290,7 +306,7 @@ If you are with me until this point, you will get this output saying that its wo
 
 ![alt text](/images_for_readme/image_20.png)
 
-# What is Ansible Playbook?
+## What is Ansible Playbook?
 
 An Ansible playbook is a configuration file written in YAML that defines a series of tasks to be executed on remote hosts. 
 Playbooks allow you to automate complex processes, using the inventory (host) file to know which machines to target.
@@ -318,7 +334,7 @@ ansible-playbook -i hosts play.yaml
 
 In the image we can see that our playbook successfully runned.
 
-### Creating Jenkins Job While Using Ansible Playbook
+## Creating Jenkins Job While Using Ansible Playbook
 
 In configuration of our job, we add `Invoke Ansible Playbook`.
 
@@ -331,7 +347,7 @@ This is how we do it and if we build this job and get into our remote-host conta
   <img src="/images_for_readme/image_24.png" alt="Image 10" width="45%">
 </p>
 
-### Adding Parameters to the Jenkins Job
+## Adding Parameters to the Jenkins Job
 
 After chaning our play.yaml file to this:
 
@@ -357,18 +373,21 @@ If we run our job with specific information, we will be given output like this:
   <img src="/images_for_readme/image_28.png" alt="Image 10" width="45%">
 </p>
 
-### Creating Multi App Example
+## Creating Multi App Example
 
 First we need to login into our db container:
 
 ```bash
 docker exec -it db bash
 ```
+
 ```bash
 mysql -u root -p
 # enter your password
 ```
+
 And create database and table inside there:
+
 ```bash
 create database people;
 use people;
@@ -378,7 +397,7 @@ desc register;
 ```
 
 
-#### Adding data into our newly created database
+### Adding data into our newly created database
 
 We created a new file containing our script for loading data to database. We also have `people.txt` as data itself.
 
@@ -392,11 +411,13 @@ docker cp put.sh db:/tmp
 docker cp people.txt db:/tmp
 docker exec -it db bash
 ```
+
 ```bash
 cd /tmp/
 # and then to load our data into our database:
 ./put.sh
 ```
+
 You will get a output something like this. Aaaaannndddd if we run `SELECT * FROM register`:
 
 <p align="center">
@@ -404,7 +425,7 @@ You will get a output something like this. Aaaaannndddd if we run `SELECT * FROM
   <img src="/images_for_readme/image_30.png" alt="Image 10" width="45%">
 </p>
 
-#### Creating Nginx Container
+## Creating Nginx Container
 
 We just created necessary files inside our `jenkins-ansible` folder just like this:
 
@@ -431,6 +452,7 @@ web:
 ```
 
 After 
+
 ```bash 
 docker compose down
 docker compose up -d
@@ -451,15 +473,18 @@ phpinfo(INFO_MODULES);
 
 ?>
 ```
+
 ```bash 
 docker exec -it web bash
 ```
+
 ```bash 
 cd /var/www/html/
 vi index.php
 ```
 
 ![alt text](images_for_readme/image_31.png)
+
 And with this image we can see that our php is active and running nicely.
 
 --- 
@@ -474,7 +499,7 @@ And with this, we can see the output at our `localhost` like this:
 
 ![alt text](images_for_readme/image_32.png)
 
-### Integrate Docker Web Service to the Ansible Inventory
+## Integrate Docker Web Service to the Ansible Inventory
 
 First we need to add our newly created host to our hosts file at `jenkins_home/ansible/hosts` like this:
 
@@ -497,7 +522,7 @@ ansible -m ping -i hosts web1
 This will prompt us a information saying that our ping has arrived to our destination host:
 ![alt text](images_for_readme/image_33.png)
 
-### Testing our playbook
+## Testing our playbook
 
 To test our playbook, first we need to copy `table.j2`:
 ```bash
@@ -531,7 +556,7 @@ ansible-playbook -i hosts people.yml
 In here we can see that our playbook works just fine!
 ![alt text](images_for_readme/image_34.png)
 
-### Creating Jenkins Job to Build Everything with a Click
+## Creating Jenkins Job to Build Everything with a Click
 
 After creating a job, we specify a variable called age with choices:
 ![alt text](images_for_readme/image_35.png)
@@ -541,8 +566,8 @@ Then we add build step as `Invoke Ansible Playbook` and after configuring our an
 
 Now all we have to do is build our job with parameter:
 
-![alt text](image_37.png)
-![alt text](image_38.png)
+![alt text](images_for_readme/image_37.png)
+![alt text](images_for_readme/image_38.png)
 With this, we can see that our job is configured nicely and works smoothly.
 
 
