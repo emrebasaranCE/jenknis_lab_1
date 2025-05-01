@@ -15,4 +15,4 @@ You can find my structured notes and hands-on configurations in the following fi
   Focuses on build automation and dependency management using Apache Maven.
 
 - 📄 [GitLab Notes](readme_gitlab/README.md)  
-  Documents GitLab integration, repository management, and CI/CD setup.
+  Documents GitLab integration, repository management, and CI/CD setup. 
