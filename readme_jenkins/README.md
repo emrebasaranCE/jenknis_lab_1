@@ -2,25 +2,25 @@
 
 ## Contents
 
-- [Introduction](#introduction)
-- [Creating basic job](#creating-basic-job)
-- [Creating Container From Fedore OS](#creating-container-from-fedore-os)
-- [Creating MySql Server in Docker](#creating-mysql-server-in-docker)
-- [Adding Ansible to our jenkins container](#adding-ansible-to-our-jenkins-container)
-- [remote-key Consistency](#remote-key-consistency)
-- [Creating our first inventory in Ansible](#creating-our-first-inventory-in-ansible)
-- [What is Ansible Playbook?](#what-is-ansible-playbook)
-- [Creating Jenkins Job While Using Ansible Playbook](#creating-jenkins-job-while-using-ansible-playbook)
-- [Adding Parameters to the Jenkins Job](#adding-parameters-to-the-jenkins-job)
-- [Creating Multi App Example](#creating-multi-app-example)
-- [Creating Nginx Container](#creating-nginx-container)
-- [Integrate Docker Web Service to the Ansible Inventory](#integrate-docker-web-service-to-the-ansible-inventory)
-- [Testing our playbook](#testing-our-playbook)
-- [Creating Jenkins Job to Build Everything with a Click](#creating-jenkins-job-to-build-everything-with-a-click)
+- [1. Introduction](#introduction)
+- [2. Creating basic job](#creating-basic-job)
+- [3. Creating Container From Fedore OS](#creating-container-from-fedore-os)
+- [4. Creating MySql Server in Docker](#creating-mysql-server-in-docker)
+- [5. Adding Ansible to our jenkins container](#adding-ansible-to-our-jenkins-container)
+- [6. remote-key Consistency](#remote-key-consistency)
+- [7. Creating our first inventory in Ansible](#creating-our-first-inventory-in-ansible)
+- [8. What is Ansible Playbook?](#what-is-ansible-playbook)
+- [9. Creating Jenkins Job While Using Ansible Playbook](#creating-jenkins-job-while-using-ansible-playbook)
+- [10. Adding Parameters to the Jenkins Job](#adding-parameters-to-the-jenkins-job)
+- [11. Creating Multi App Example](#creating-multi-app-example)
+- [12. Creating Nginx Container](#creating-nginx-container)
+- [13. Integrate Docker Web Service to the Ansible Inventory](#integrate-docker-web-service-to-the-ansible-inventory)
+- [14. Testing our playbook](#testing-our-playbook)
+- [15. Creating Jenkins Job to Build Everything with a Click](#creating-jenkins-job-to-build-everything-with-a-click)
 
 ---
 
-## Introduction
+## 1. Introduction
 
 First, we created the Jenkins container using our current `docker-compose.yaml` file. After executing `docker compose up -d`, the Jenkins container becomes active. Then we proceed to install the needed plugins using the given key from the Jenkins container.
 
@@ -28,7 +28,7 @@ First, we created the Jenkins container using our current `docker-compose.yaml` 
 
 ---
 
-## Creating basic job
+## 2. Creating basic job
 
 We can create a script on our host machine:
 
@@ -62,7 +62,7 @@ We can access this variables. If we build this job, we can see an output like th
 
 ---
 
-## Creating Container From Fedore OS
+## 3. Creating Container From Fedore OS
 
 We create new Dockerfile for fedora container at `fedora/Dockerfile` and we update our docker-compose file for remote-host container.
 
@@ -106,7 +106,7 @@ We can see here that our job is worked out and we can communicate with remote-ho
 
 --- 
 
-## Creating MySql Server in Docker
+## 4. Creating MySql Server in Docker
 
 We updated our docker-compose.yaml file like this:
 
@@ -235,7 +235,7 @@ We created our jenkins job in a way that get 2 credentials variable from jenkins
 
 By doing this like this, we can create a backup of any database we want actually. If there is database itself, its so easy for us to specify which database to backup. Jenkins is really flexible for this stuff and i love ittt! 
 
-## Adding Ansible to our jenkins container
+## 5. Adding Ansible to our jenkins container
 
 We created new directory `jenkins-ansible` and inside that directory, we created a new Dockerfile file with configurations for ansible + jenkins. And updated our docker-compose file.
 
@@ -254,7 +254,7 @@ The output shows us that we successfully installed ansible to our container, but
   <img src="image_19.png" alt="Image 10" width="45%">
 </p>
 
-## remote-key Consistency
+## 6. remote-key Consistency
 
 While connecting to our remote-host container, we always in need of remote-key file. For this reason, we can create a new directory inside our jenkins-ansible dir and add remote-key file into there. This way when our container restarts, we can always have the remote-key file in the palm of our hands. 
 
@@ -278,7 +278,7 @@ docker exec \                         # Run a command inside a container
   "chmod 400 /var/jenkins_home/ansible/remote-key && \
    chown 1000:1000 /var/jenkins_home/ansible -R"
 ```
-## Creating our first inventory in Ansible
+## 7. Creating our first inventory in Ansible
 
 After creating our `fedora/hosts` file, we copy this file into our jenkins container like this:
 
@@ -304,7 +304,7 @@ If you are with me until this point, you will get this output saying that its wo
 
 ![alt text](image_20.png)
 
-## What is Ansible Playbook?
+## 8. What is Ansible Playbook?
 
 An Ansible playbook is a configuration file written in YAML that defines a series of tasks to be executed on remote hosts. 
 Playbooks allow you to automate complex processes, using the inventory (host) file to know which machines to target.
@@ -332,7 +332,7 @@ ansible-playbook -i hosts play.yaml
 
 In the image we can see that our playbook successfully runned.
 
-## Creating Jenkins Job While Using Ansible Playbook
+## 9. Creating Jenkins Job While Using Ansible Playbook
 
 In configuration of our job, we add `Invoke Ansible Playbook`.
 
@@ -345,7 +345,7 @@ This is how we do it and if we build this job and get into our remote-host conta
   <img src="image_24.png" alt="Image 10" width="45%">
 </p>
 
-## Adding Parameters to the Jenkins Job
+## 10. Adding Parameters to the Jenkins Job
 
 After chaning our play.yaml file to this:
 
@@ -371,7 +371,7 @@ If we run our job with specific information, we will be given output like this:
   <img src="image_28.png" alt="Image 10" width="45%">
 </p>
 
-## Creating Multi App Example
+## 11. Creating Multi App Example
 
 First we need to login into our db container:
 
@@ -423,7 +423,7 @@ You will get a output something like this. Aaaaannndddd if we run `SELECT * FROM
   <img src="image_30.png" alt="Image 10" width="45%">
 </p>
 
-## Creating Nginx Container
+## 12. Creating Nginx Container
 
 We just created necessary files inside our `jenkins-ansible` folder just like this:
 
@@ -497,7 +497,7 @@ And with this, we can see the output at our `localhost` like this:
 
 ![alt text](images_for_readme/image_32.png)
 
-## Integrate Docker Web Service to the Ansible Inventory
+## 13. Integrate Docker Web Service to the Ansible Inventory
 
 First we need to add our newly created host to our hosts file at `jenkins_home/ansible/hosts` like this:
 
@@ -520,7 +520,7 @@ ansible -m ping -i hosts web1
 This will prompt us a information saying that our ping has arrived to our destination host:
 ![alt text](images_for_readme/image_33.png)
 
-## Testing our playbook
+## 14. Testing our playbook
 
 To test our playbook, first we need to copy `table.j2`:
 ```bash
@@ -554,7 +554,7 @@ ansible-playbook -i hosts people.yml
 In here we can see that our playbook works just fine!
 ![alt text](images_for_readme/image_34.png)
 
-## Creating Jenkins Job to Build Everything with a Click
+## 15. Creating Jenkins Job to Build Everything with a Click
 
 After creating a job, we specify a variable called age with choices:
 ![alt text](images_for_readme/image_35.png)
