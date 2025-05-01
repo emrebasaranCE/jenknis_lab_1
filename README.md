@@ -16,3 +16,6 @@ You can find my structured notes and hands-on configurations in the following fi
 
 - 📄 [GitLab Notes](readme_gitlab/README.md)  
   Documents GitLab integration, repository management, and CI/CD setup. 
+
+- 📄 [Jenkins Pipeline](readme_jenkins_pipeline/README.md)  
+  Creating jenkins pipelines in Jenkins.
