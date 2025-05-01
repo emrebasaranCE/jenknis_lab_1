@@ -92,3 +92,5 @@ Now lets copy our jave app into our maven repository:
 ```bash
 cp simple-java-maven-app/* maven/ -r
 ```
+
+---

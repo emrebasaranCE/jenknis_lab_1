@@ -37,7 +37,6 @@ services:
       - "80:80"
     networks:
       - net
-
   # gitlab:
   #   image: gitlab/gitlab-ee:latest
   #   container_name: gitlab_container
@@ -45,15 +44,15 @@ services:
   #   hostname: 'gitlab.example.com'
   #   ports:
   #     - '8090:80'
+  #     - '443:443'
+  #     - '22:22'
   #   volumes:
   #     - "$PWD/gitlab_files/config:/etc/gitlab"
   #     - "$PWD/gitlab_files/logs:/var/log/gitlab"
   #     - "$PWD/gitlab_files/data:/var/opt/gitlab"
+  #   shm_size: '256m'
   #   networks:
   #     - net
-  #   mem_limit: 8g
-  #   cpus: 8.0
-
 
 networks:
   net:
